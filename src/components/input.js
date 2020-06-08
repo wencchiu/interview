@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const TaskInput = styled.input`
+const CityInput = styled.input`
   width: 90%;
   height: 50px;
   padding-left: 10px;
@@ -23,32 +23,32 @@ const TaskInput = styled.input`
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.currentTaskText = "";
+    this.currentText = "";
     this.onChange = this.onChange.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   submit(e) {
-    if (this.currentTaskText.length >= 1) {
+    if (this.currentText.length >= 1) {
       if (e.keyCode === 13) {
         this.props.submit();
-        this.currentTaskText = "";
+        this.currentText = "";
       }
     }
   }
 
   onChange(e) {
-    this.currentTaskText = e.target.value.trim();
+    this.currentText = e.target.value.trim();
     this.props.onChange(e.target.value);
   }
 
   render() {
     return (
-      <TaskInput
+      <CityInput
         type="text"
         placeholder="Enter a city"
-        id="to-do-input"
-        value={this.props.currentTaskText}
+        id="city-input"
+        value={this.props.currentText}
         onChange={this.onChange}
         onKeyUp={this.submit}
       />

@@ -15,15 +15,23 @@ class App extends Component {
 
   addInputCity(city){
     this.cityNum += 1;
-    let url = `api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.appid}`;
-    let data = fetch(url).then(res => res.json());
-    this.state.list.unshift({
-      cityNum: this.cityNum,
-      data: data
-    });
-    this.setState({
-      list: this.state.list
-    });
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${this.appid}`;
+    fetch(url).then(res => {
+      if(res.ok){
+        return res.json()
+      }
+      throw new Error();
+    })
+    .then(data =>{
+      this.state.list.unshift({
+        cityNum: this.cityNum,
+        data: data
+      });
+      this.setState({
+        list: this.state.list
+      });
+    })
+    .catch(err => alert("The city does not exist. Please enter a new city."))
   }
 
   render() {
